@@ -169,7 +169,7 @@ El següent diagrama de seqüència mostra una partida d'un jugador contra el se
 
     note over Client,Servidor: Creem una nova partida. <BR/>El servidor ens hi afegeix automàticament.
 
-    Client->>+Servidor: CREATE ("SuperPlayer")
+    Client->>+Servidor: CREATE ("SuperPlayer", 9, 9, 1, 1, 1, 1, 1, 1)
     Servidor-->>-Client: OK (10001, 20013)
         
     note over Client,Servidor: Quan la partida tingui tots els jugadors,<br/>el servidor notificarà el canvi d'estat del joc.
@@ -177,70 +177,142 @@ El següent diagrama de seqüència mostra una partida d'un jugador contra el se
     Servidor->>Client: GAMESTATUS (2, <board1>, <board2>, 0, 0, 1, 1, 1, 1, 1)
 
     note over Client,Servidor: Obtenim la configuració de la partida.
+    opt Al haver creat el joc ja tenim la informació
     Client->>+Servidor: GETCONFIG (10001, 20013)
-    Servidor-->>-Client: GAMECONFIG (10, 10, 1, 1, 1, 1, 1)    
+    Servidor-->>-Client: GAMECONFIG (9, 9, 1, 1, 1, 1, 1)    
+    end
 
     note over Client,Servidor: Afegim els diferents vaixells.
-    Client->>+Servidor: ADDVESSEL (10001, 20013, 1, 2, 5, 2, 9)
-    Servidor-->>-Client: OK (10001, 20013)
-    Client->>+Servidor: ADDVESSEL (10001, 20013, 2, 3, 3, 6, 3)
-    Servidor-->>-Client: OK (10001, 20013)
-    Client->>+Servidor: ADDVESSEL (10001, 20013, 3, 9, 3, 9, 5)
-    Servidor-->>-Client: OK (10001, 20013)
-    Client->>+Servidor: ADDVESSEL (10001, 20013, 4, 5, 7, 5, 9)
-    Servidor-->>-Client: OK (10001, 20013)
-    Client->>+Servidor: ADDVESSEL (10001, 20013, 5, 7, 7, 8, 7)
-    Servidor-->>-Client: OK (10001, 20013)
     
-    note over Client,Servidor: Quan la configuració s'hagi finalitzat,<br/>el servidor notificarà el canvi d'estat del joc.
-
-    Servidor->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
-
-    note over Client,Servidor: Fem les notres jugades. Mentre tenim un Hit anem tirant.
-
-    Client->>+Servidor: SHOT (10001, 20013, 3, 7)
-    Servidor-->>-Client: HIT (0)
-
-    Servidor->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
-
-    Client->>+Servidor: SHOT (10001, 20013, 3, 8)
-    Servidor-->>-Client: HIT (1)
-
-    Servidor->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
-
-    Client->>+Servidor: SHOT (10001, 20013, 3, 9)
-    Servidor-->>-Client: FAIL ()
-
-    Servidor->>Client: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    
-    note over Client,Servidor: Després d'haver fallat, el servidor notificarà<br/>el canvi d'estat del joc indicant que no és el nostre torn.
-    note over Client,Servidor: Per cada moviment de l'oponent rebrem una actualització<br/>de l'estat.
-    Servidor->>Client: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    Servidor->>Client: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    Servidor->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
-
-    note over Client,Servidor: Després que l'oponent hagi fallat, el servidor notificarà<br/>el canvi d'estat del joc indicant que torna a ser nostre torn.
-
-    Client->>+Servidor: SHOT (10001, 20013, 1, 1)
-    Servidor-->>-Client: HIT (0)
-
-    Servidor->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
-
-    Client->>+Servidor: SHOT (10001, 20013, 2, 1)
-    Servidor-->>-Client: HIT (0)
-
-    Servidor->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
-
-    Client->>+Servidor: SHOT (10001, 20013, 3, 1)
-    Servidor-->>-Client: HIT (1)
-
-    Servidor->>Client: GAMESTATUS (4, <board1>, <board2>, 1, 0)
-
-    note over Client,Servidor: Després que un dels jugadors hagi enfonsat l'últim vaixell, <br/> el servidor notificarà el canvi d'estat del joc a finalitzat.
+    note over Client,Servidor: ...
 
     note over Client,Servidor: Tant si volem iniciar una altra partida, com deixar el joc, <br/> abans haurem de deixar la partida.
 
     Client->>+Servidor: LEAVE (10001, 20013)
     Servidor-->>-Client: OK (10001, 20013)
+
+```
+
+#### Partida amb dos jugadors
+
+El següent diagrama de seqüència mostra una partida amb dos jugadors (AI desactivat). La partida s'ha de crear manualment, altrament el servidor la crearà amb (AI actiu). Per simplificar, utilitzarem un tauler de $3\times 3$ amb només dos vaixells, un de tipus $T_3$ i un de tipus $T_4$.
+
+```mermaid
+  sequenceDiagram
+
+    note over Client1,Servidor: Creem una nova partida. <BR/>El servidor ens hi afegeix automàticament.
+
+    Client1->>+Servidor: CREATE ("GameOwner", 3, 3, 0, 0, 1, 0, 1, 0)
+    Servidor-->>-Client1: OK (10001, 20013)
+
+    note over Client2,Servidor: Ens afegim a una partida.
+
+    Client2->>+Servidor: JOIN ("OtherPlayer")
+    Servidor-->>-Client2: OK (10005, 20013)
+        
+    note over Client1,Client2: Quan la partida tingui tots els jugadors,<br/>el servidor notificarà el canvi d'estat del joc.
+
+    Servidor->>Client1: GAMESTATUS (2, <board1>, <board2>, 0, 0, 0, 0, 1, 0, 1)
+    
+    Servidor->>Client2: GAMESTATUS (2, <board1>, <board2>, 0, 0, 0, 0, 1, 0, 1)
+
+    note over Client1,Client2: Obtenim la configuració de la partida.
+
+    opt Al haver creat el joc ja tenim la informació
+    Client1->>+Servidor: GETCONFIG (10001, 20013)
+    Servidor-->>-Client1: GAMECONFIG (3, 3, 0, 0, 1, 0, 1)    
+    end
+
+    Client2->>+Servidor: GETCONFIG (10005, 20013)
+    Servidor-->>-Client2: GAMECONFIG (3, 3, 0, 0, 1, 0, 1)    
+
+    note over Client1,Client2: Els jugadors afegeixen els diferents vaixells.
+    Client1->>+Servidor: ADDVESSEL (10001, 20013, 3, 1, 1, 3, 1)
+    Servidor-->>-Client1: OK (10001, 20013)    
+    
+    Client2->>+Servidor: ADDVESSEL (10005, 20013, 3, 1, 3, 3, 3)
+    Servidor-->>-Client2: OK (10005, 20013)
+
+    Client2->>+Servidor: ADDVESSEL (10005, 20013, 5, 2, 2, 3, 2)
+    Servidor-->>-Client2: OK (10005, 20013)
+
+    note over Client1,Client2: El Client2 ha finalitzat la configuració.<br/>El servidor notica el canvi en l'estat. El nombre de vaixells restant canvia segons cada jugador.
+
+    Servidor->>Client1: GAMESTATUS (2, <board1>, <board2>, 0, 1, 0, 0, 0, 0, 1)    
+    Servidor->>Client2: GAMESTATUS (2, <board1>, <board2>, 0, 1, 0, 0, 0, 0, 0)   
+    
+    Client1->>+Servidor: ADDVESSEL (10001, 20013, 5, 3, 2, 3, 3)
+    Servidor-->>-Client1: OK (10001, 20013)
+      
+    note over Client1,Client2: Un cop el Client1 finalitza la configuració,<br/>el servidor notifica el canvi d'estat del joc.
+    
+    Servidor->>Client1: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Servidor->>Client2: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+
+    note over Client1,Servidor: És el torn del jugador 1. Mentre té un Hit va tirant.
+
+    Client1->>+Servidor: SHOT (10001, 20013, 1, 2)
+    Servidor-->>-Client1: FAIL ()
+
+    note over Client1,Client2: Canvi de torn
+    Servidor->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+    Servidor->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+
+    note over Client2,Servidor: És el torn del jugador 2. Mentre té un Hit va tirant.
+
+    Client2->>+Servidor: SHOT (10005, 20013, 1, 1)
+    Servidor-->>-Client2: HIT (0)
+
+    Servidor->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+    Servidor->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+
+    Client2->>+Servidor: SHOT (10005, 20013, 2, 1)
+    Servidor-->>-Client2: HIT (0)
+
+    Servidor->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+    Servidor->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+
+    Client2->>+Servidor: SHOT (10005, 20013, 3, 1)
+    Servidor-->>-Client2: HIT (1)
+
+    Servidor->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+    Servidor->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+
+    Client2->>+Servidor: SHOT (10005, 20013, 1, 3)
+    Servidor-->>-Client2: FAIL ()
+
+    note over Client1,Client2: Canvi de torn
+    Servidor->>Client1: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Servidor->>Client2: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+
+    note over Client1,Servidor: És el torn del jugador 1. Mentre té un Hit va tirant.
+
+    Client1->>+Servidor: SHOT (10001, 20013, 3, 1)
+    Servidor-->>-Client1: FAIL ()
+
+    note over Client1,Client2: Canvi de torn
+    Servidor->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+    Servidor->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+
+    Client2->>+Servidor: SHOT (10005, 20013, 3, 2)
+    Servidor-->>-Client2: HIT (0)
+
+    Servidor->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+    Servidor->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+
+    Client2->>+Servidor: SHOT (10005, 20013, 3, 3)
+    Servidor-->>-Client2: HIT (1)
+
+    note over Client1,Client2: El Client2 ha enfonsat l'últim vaixell del Client1.<br/>Arribem al final de lapartida i el servidor notifica el canvi d'estat del joc.
+    Servidor->>Client1: GAMESTATUS (4, <board1>, <board2>, 0, 1)
+    Servidor->>Client2: GAMESTATUS (4, <board1>, <board2>, 1, 0)
+
+    note over Client1,Client2: Tant si volem iniciar una altra partida, com deixar el joc, <br/> abans haurem de deixar la partida.
+
+    Client1->>+Servidor: LEAVE (10001, 20013)
+    Servidor-->>-Client1: OK (10001, 20013)
+
+    Client2->>+Servidor: LEAVE (10005, 20013)
+    Servidor-->>-Client2: OK (10005, 20013)
 
 ```
