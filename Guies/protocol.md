@@ -80,7 +80,7 @@ Per exemple, un missatge de tipus `GAMESTATUS` per una partida en la que l'opone
 
 ## 2. Configuració de la partida
 
-Un cop hem iniciat una partida, el primer pas és ubicar els vaixells en la quadrícula. El __client__ pot consultar la configuració de la partida amb una comanda `GETCONF`, i el __servidor__ li contestarà amb un missatge `GAMECONFIG` amb els paràmetres de la partida:
+Un cop hem iniciat una partida, el primer pas és ubicar els vaixells en la quadrícula. El __client__ pot consultar la configuració de la partida amb una comanda `GETCONFIG`, i el __servidor__ li contestarà amb un missatge `GAMECONFIG` amb els paràmetres de la partida:
 
 `C ------- GETCONFIG (playerId, gameId) ------> S`
 
@@ -147,3 +147,9 @@ En qualsevol moment, un __client__ pot abandonar una partida. Això ho farà env
 `C ------- LEAVE (playerId, gameId) ------> S`
 
 El servidor contestarà amb un missatge `OK` si tot ha anat bé, o amb un `ERROR`. Un cop abandonada la partida, ja no podrem accedir als resultats ni interaccionar amb ella.
+
+Finalment, el client sempre pot demanar l'estat actual de la partida, mitjançant un missatge `GETSTATUS`. 
+
+`C ------- GETSTATUS (playerId, gameId) ------> S`
+
+El servidor contestarà amb un missatge `GAMESTATUS`.

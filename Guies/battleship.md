@@ -294,6 +294,8 @@ El següent diagrama de seqüència mostra una partida amb dos jugadors (AI desa
     Servidor->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
     Servidor->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
 
+    note over Client2,Servidor: És el torn del jugador 2. Mentre té un Hit va tirant.
+
     Client2->>+Servidor: SHOT (10005, 20013, 3, 2)
     Servidor-->>-Client2: HIT (0)
 

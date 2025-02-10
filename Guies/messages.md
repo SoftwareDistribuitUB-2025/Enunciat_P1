@@ -24,7 +24,7 @@ Els codis de missatge (messageType), així com els errors associats a cada missa
 |   10            | SHOT         | 3, 4, 9, 10                                |
 |   11            | HIT          |                                            |
 |   12            | FAIL         |                                            |
-|   13            | CLOSE        | 2, 5                                       |
+|   13            | LEAVE        | 2, 5                                       |
 
 __Nota:__ La taula només mostra els missatges directament relacionats a un missatge determinat, però cal tenir en compte que alguns errors es poden donar en qualsevol moment, ja sigui com a resposta d'un missatge o per situacions sobrevingudes.
 
