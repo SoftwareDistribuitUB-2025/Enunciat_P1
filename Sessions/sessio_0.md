@@ -26,7 +26,6 @@ Per tant, els grups tindran un format tipus   **B01**, **B12**, **F05**, etc...
 
 Un cop assignat el grup, **un i només un** dels membres del grup haurà d'entrar a GitHub Classroom mitjançant l'enllaç següent, i crear el grup amb el codi especificat. Un cop fet el grup, l'altre membre haurà d'entrar al mateix enllaç i **afegir-se al grup ja creat**.
 
-[GitHub Classroom]()
 
 ## Enunciat
 
