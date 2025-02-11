@@ -43,68 +43,10 @@ La practica 1 consisteix en implementar un joc senzill amb arquitectura Client-S
 * El conjunt de **commits** d'un membre de la parella dins la seva branca s'hauran de revisar (**code review**) per l'altra membre abans de fer _merge_ a la branca principal. Es farà mitjançant[ **Pull Requests**,](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/proposing-changes-to-your-work-with-pull-requests) per tant no es podrà seguir desenvolupant fins que l'altre membre de la parella no acceptin els canvis en el codi proposats. Es poden fer tants PR com es vulgui, com mes _feedback_ entre la parella, millor.
 * Per acceptar els canvis, el revisor ha de llegir-se el codi, comprovar que segueix els estàndards i provar els tests.  En cas de trobar coses per millorar o TESTS que faltin, ho ha d'explicar en el comentaris del  **Pull Request** i no acceptar els canvis fins que l'altra ho millori. En cas de que estigui tot correcte ha de comentar els canvis realitzats i les proves que ha fet.  
 
-### Sessió 0
 
-En aquesta sessió donem a conèixer el codi base de la llibreria ComUtils.
+### Sessions
 
-### Sessió 1
-
-En aquesta sessió es proporciona el plantejament del protocol. És essencial entendre bé les trames i la màquina d'estats d'aquest.
-
-El projecte proporcionat conté les carpetes de Client i Servidor on haureu de seguir implementat el joc. És obligatori instalar una versió de Java SDK superior o igual a la 1.9 i maven instal·lat. 
-
-Compilar el codi i empaquetar-lo:
-```bash 
-mvn clean package
-```
-També borra tots els continguts de la carpeta /target.
-
-Run tests:
-```bash 
-mvn test
-```
-
-Executar els .jar:
-```bash 
-java -jar target/Server-1.0-SNAPSHOT-jar-with-dependencies.jar -p 8080
-java -jar target/Client-1.0-SNAPSHOT-jar-with-dependencies.jar -h localhost -p 8080
-```
-
-#### Deures:
-* Realitzar la funcio per llegir el tipus de dada "string variable"
-* Fer les primeres trames (Hello, Admit, etc) a Servidor i Client (cadascuna on toqui) i comprovar la comunicació entre ambdós.
-
-### Sessió 2
-
-* Acabar amb els dubtes de Git / GitHub: settejar bé els projectes, entendre com es vol treballar amb branques i PR's.
-* Organització del codi: per on començar
-
-**Deures**
-
-* Mínim enviar i rebre 4 trames
-* Començar a adaptar Servidor per a que sigui multi-thread
-
-### Sessió 3
-
-* Update de l'idSessió al protocol!
-* Check per parelles de l'estat de la pràctica, GitHub i deures
-
-**Deures**
-
-* Servidor multithread
-* Resta de trames
-
-### Execució 
-
-L'execució seguirà obligatòriament els següents paràmetres:
-
-**Servidor**
-* -p: port a on establir-se
-
-**Client**
-
-* -h: IP o nom de la màquina a on connectar-se
-* -p: port on trobar el servidor
-
-
+| Sessió |  Setmana  | Guió                                      |  Notes   |
+|--------|-----------|-------------------------------------------|----------|
+|    0   | 12 Febrer | [Guió Sessió 0](./Sessions/sessio_0.md)   | Aquesta setmana farem la creació de grups i revisarem el problema a resoldre i el codi que es facilita |
 
