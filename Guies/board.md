@@ -25,8 +25,9 @@ El valor $t$ ens indicarà el tipus de vaixell que hi ha en la cel·la, seguint 
 | **Valor**  |    **Tipus**     |  **Format**       |  **Significat**       |
 |------------|------------------|-------------------|-----------------------|
 |    000     | Numèric          | 1 byte            | Aigüa                 |
-|    001     | Numèric          | 1 byte            | Tocat                 |
-|    002     | Numèric          | 1 byte            | Enfonsat              |
+|    001     | Numèric          | 1 byte            | Fallat                |
+|    002     | Numèric          | 1 byte            | Tocat                 |
+|    003     | Numèric          | 1 byte            | Enfonsat              |
 |    XY1     | Numèric          | 1 byte            | Instància $n = 10\times X + Y$ de tipus $T_1$ |
 |    XY2     | Numèric          | 1 byte            | Instància $n = 10\times X + Y$ de tipus $T_2$ |
 |    XY3     | Numèric          | 1 byte            | Instància $n = 10\times X + Y$ de tipus $T_3$ |
@@ -46,6 +47,6 @@ En el cas del `board2`, cada byte tindrà un valor numèric $v_{r,c}$ segons la 
 | **Valor**  |    **Tipus**     |  **Format**       |  **Significat**       |
 |------------|------------------|-------------------|-----------------------|
 |    0       | Numèric          | 1 byte            | No tenim informació.  |
-|    1       | Numèric          | 1 byte            | Aigüa                 |
+|    1       | Numèric          | 1 byte            | Aigüa (Fallat)                 |
 |    2       | Numèric          | 1 byte            | Tocat                 |
 |    3       | Numèric          | 1 byte            | Enfonsat              |
