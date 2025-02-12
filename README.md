@@ -25,7 +25,7 @@
 | Concepte                                                      | Tipus de nota | Pes |
 |---------------------------------------------------------------|---------------|-----|
 | Codi                                                       | Grupal   | 0.3 |
-| Documentació (Javadoc) | Grupal | 0.2 |
+| Documentació (Javadoc i memòria) | Grupal | 0.2 |
 | Proves i Sessió de Proves | Grupal | 0.3|
 | Avaluació de GitHub (Pull Requests, Feedback, continuïtat...) | Individual    | 0.2 |
 
