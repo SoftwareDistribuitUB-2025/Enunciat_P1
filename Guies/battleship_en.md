@@ -10,7 +10,8 @@ Battleship is a classic two-player board game. Each player places a fleet of shi
 </figure>
 
 For this practice, we define the following game specifics:
-- Players can choose to play against a human opponent (__AI__ off) or against the machine (__AI__ on). 
+
+- Players can choose to play against a human opponent (**AI** off) or against the machine (**AI** on).
 - The board size is not restricted to $10 \times 10$, but can be customized to a $W \times H$ grid, where $W$ is the number of **columns** and $H$ is the number of **rows**. The values for $W$ and $H$ are set at the beginning of each game.
 - The number of ships also depends on the game setup, specifying how many instances of each ship type can be placed on the board. The ship types $T_i$ determine their size:
   - **$T_1$**: Longship (5 cells)
@@ -23,16 +24,17 @@ For this practice, we define the following game specifics:
 ## Game Definition
 
 This section describes the high-level mechanics of the game we will implement. You can find the implementation details in the following documents:
-- [Protocol](./protocol.md): Definition of message exchanges and low-level descriptions.
-- [Messages](./messages.md): Definition of message codes and related errors.
-- [Errors](./errors.md): Definition of error messages and codes.
-- [Board](./board.md): Description of how game boards are represented.
 
-Note that there will be no data persistence on the __server__, meaning if the server is closed and reopened, all game and player data will be lost.
+- [Protocol](./protocol_en.md): Definition of message exchanges and low-level descriptions.
+- [Messages](./messages_en.md): Definition of message codes and related errors.
+- [Errors](./errors_en.md): Definition of error messages and codes.
+- [Board](./board_en.md): Description of how game boards are represented.
+
+Note that there will be no data persistence on the **server**, meaning if the server is closed and reopened, all game and player data will be lost.
 
 ### Game Phases
 
-Once a game is created, either automatically by the __server__ or manually by a __client__ using the `CREATE` command, it enters the `WAITING_PLAYERS` state, where it waits for players to be assigned. Note that in games with only one player (__AI__ off), this phase is skipped automatically since the player who created the game (or requested the __server__ to create it) is assigned automatically.
+Once a game is created, either automatically by the **server** or manually by a **client** using the `CREATE` command, it enters the `WAITING_PLAYERS` state, where it waits for players to be assigned. Note that in games with only one player (**AI** off), this phase is skipped automatically since the player who created the game (or requested the **server** to create it) is assigned automatically.
 
 Once all players have been assigned, the game enters the `SETUP` phase, where players must place their ships. This phase ends when all players have placed their ships.
 
@@ -71,7 +73,7 @@ stateDiagram-v2
     PLAYING[P2] --> FINISHED: LEAVE
 ```
 
-The __client__ can request the current game status at any time using the `GETSTATUS` message, which will provide both the current game state, as well as the player’s board (ship locations) and the opponent’s board (with `HIT` and `FAIL` marks for previous moves). Relevant information about the game state will also be provided. All details are included in the `GAMESTATUS` message in the [protocol](./protocol.md).
+The **client** can request the current game status at any time using the `GETSTATUS` message, which will provide both the current game state, as well as the player’s board (ship locations) and the opponent’s board (with `HIT` and `FAIL` marks for previous moves). Relevant information about the game state will also be provided. All details are included in the `GAMESTATUS` message in the [protocol](./protocol_en.md).
 
 ### Example Call Sequences
 
@@ -90,14 +92,14 @@ The following sequence diagram shows a game between a single player and the serv
 
     Client->>+Server: JOIN ("SuperPlayer")
     Server-->>-Client: OK (10001, 20013)
-        
+
     note over Client,Server: When the game has all players,<br/>the server will notify the game state change.
 
     Server->>Client: GAMESTATUS (2, <board1>, <board2>, 0, 0, 1, 1, 1, 1, 1)
 
     note over Client,Server: We obtain the game configuration.
     Client->>+Server: GETCONFIG (10001, 20013)
-    Server-->>-Client: GAMECONFIG (10, 10, 1, 1, 1, 1, 1)    
+    Server-->>-Client: GAMECONFIG (10, 10, 1, 1, 1, 1, 1)
 
     note over Client,Server: We add the different ships.
     Client->>+Server: ADDVESSEL (10001, 20013, 1, 2, 5, 2, 9)
@@ -110,7 +112,7 @@ The following sequence diagram shows a game between a single player and the serv
     Server-->>-Client: OK (10001, 20013)
     Client->>+Server: ADDVESSEL (10001, 20013, 5, 7, 7, 8, 7)
     Server-->>-Client: OK (10001, 20013)
-    
+
     note over Client,Server: When the setup is finished,<br/>the server will notify the game state change.
 
     Server->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
@@ -131,7 +133,7 @@ The following sequence diagram shows a game between a single player and the serv
     Server-->>-Client: FAIL ()
 
     Server->>Client: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    
+
     note over Client,Server: After missing, the server will notify<br/>the game state change indicating that it's not our turn.
     note over Client,Server: For each opponent's move, we will receive an update<br/>on the state.
     Server->>Client: GAMESTATUS (3, <board1>, <board2>, 0, 1)
@@ -179,7 +181,7 @@ The following sequence diagram shows a game between a single player and the serv
 
     Client->>+Server: CREATE ("SuperPlayer", 9, 9, 1, 1, 1, 1, 1, 1)
     Server-->>-Client: OK (10001, 20013)
-        
+
     note over Client,Server: When the game has all players,<br/>the server will notify the game state change.
 
     Server->>Client: GAMESTATUS (2, <board1>, <board2>, 0, 0, 1, 1, 1, 1, 1)
@@ -187,11 +189,11 @@ The following sequence diagram shows a game between a single player and the serv
     note over Client,Server: We obtain the game configuration.
     opt Since we created the game, we already have the information
     Client->>+Server: GETCONFIG (10001, 20013)
-    Server-->>-Client: GAMECONFIG (9, 9, 1, 1, 1, 1, 1)    
+    Server-->>-Client: GAMECONFIG (9, 9, 1, 1, 1, 1, 1)
     end
 
     note over Client,Server: We add the different ships.
-    
+
     note over Client,Server: ...
 
     note over Client,Server: Whether we want to start another game or leave the game,<br/>we must leave the game first.
@@ -221,27 +223,27 @@ The following sequence diagram shows a game with two players (AI deactivated). T
 
     Client2->>+Server: JOIN ("OtherPlayer")
     Server-->>-Client2: OK (10005, 20013)
-        
+
     note over Client1,Client2: When the game has all players,<br/>the server will notify the game state change.
 
     Server->>Client1: GAMESTATUS (2, <board1>, <board2>, 0, 0, 0, 0, 1, 0, 1)
-    
+
     Server->>Client2: GAMESTATUS (2, <board1>, <board2>, 0, 0, 0, 0, 1, 0, 1)
 
     note over Client1,Client2: We obtain the game configuration.
 
     opt Since we created the game, we already have the information
     Client1->>+Server: GETCONFIG (10001, 20013)
-    Server-->>-Client1: GAMECONFIG (3, 3, 0, 0, 1, 0, 1)    
+    Server-->>-Client1: GAMECONFIG (3, 3, 0, 0, 1, 0, 1)
     end
 
     Client2->>+Server: GETCONFIG (10005, 20013)
-    Server-->>-Client2: GAMECONFIG (3, 3, 0, 0, 1, 0, 1)    
+    Server-->>-Client2: GAMECONFIG (3, 3, 0, 0, 1, 0, 1)
 
     note over Client1,Client2: The players add their ships.
     Client1->>+Server: ADDVESSEL (10001, 20013, 3, 1, 1, 3, 1)
-    Server-->>-Client1: OK (10001, 20013)    
-    
+    Server-->>-Client1: OK (10001, 20013)
+
     Client2->>+Server: ADDVESSEL (10005, 20013, 3, 1, 3, 3, 3)
     Server-->>-Client2: OK (10005, 20013)
 
@@ -250,14 +252,14 @@ The following sequence diagram shows a game with two players (AI deactivated). T
 
     note over Client1,Client2: Client2 has finished the setup.<br/>The server notifies the state change. The number of remaining ships changes for each player.
 
-    Server->>Client1: GAMESTATUS (2, <board1>, <board2>, 0, 1, 0, 0, 0, 0, 1)    
-    Server->>Client2: GAMESTATUS (2, <board1>, <board2>, 0, 1, 0, 0, 0, 0, 0)   
-    
+    Server->>Client1: GAMESTATUS (2, <board1>, <board2>, 0, 1, 0, 0, 0, 0, 1)
+    Server->>Client2: GAMESTATUS (2, <board1>, <board2>, 0, 1, 0, 0, 0, 0, 0)
+
     Client1->>+Server: ADDVESSEL (10001, 20013, 5, 3, 2, 3, 3)
     Server-->>-Client1: OK (10001, 20013)
-      
+
     note over Client1,Client2: Once Client1 finishes the setup,<br/>the server notifies the game state change.
-    
+
     Server->>Client1: GAMESTATUS (3, <board1>, <board2>, 1, 0)
     Server->>Client2: GAMESTATUS (3, <board1>, <board2>, 0, 1)
 
