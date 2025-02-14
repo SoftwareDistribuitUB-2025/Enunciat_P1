@@ -3,7 +3,7 @@
 | Professor    | Mail            | Classes                                                               |
 |--------------|-----------------|-----------------------------------------------------------------------|
 | Eloi Puertas | epuertas@ub.edu | Teoria, dimecres de 15 a 17h. |
-| Kaisar Kusibar| kaisar.kushibar@ub.edu| Pràctiques, dimecres de 17 a 19h (Grup F)|
+| Kaisar Kushibar| kaisar.kushibar@ub.edu| Pràctiques, dimecres de 17 a 19h (Grup F)|
 | Xavier Baró | xbaro@ub.edu |Pràctiques, dijous de 17 a 19h (Grup B), dijous de 19 a 21 (Grup C) |
 
 ## Avaluació
