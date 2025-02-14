@@ -79,10 +79,6 @@ The **client** can request the current game status at any time using the `GETSTA
 
 #### Single-player Game with Automatic Creation
 
-Here is the translated document in English:
-
----
-
 The following sequence diagram shows a game between a single player and the server (with AI active), where the server automatically creates the game with default parameters. The ship arrangement follows the example board shown in the game description. Note that if the player-vs-player option is implemented, the `JOIN` command could add us to an existing game, but we assume this is not the case in this example.
 
 ```mermaid
