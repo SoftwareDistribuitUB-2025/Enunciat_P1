@@ -33,9 +33,9 @@ We summarize the encoding in the following table:
 | **Value** | **Type** | **Format** | **Meaning**                                      |
 | --------- | -------- | ---------- | ------------------------------------------------ |
 | 000       | Numeric  | 1 byte     | Water                                            |
-| 001       | Numeric  | 1 byte     | Missed shot                                      |
-| 002       | Numeric  | 1 byte     | Hit                                              |
-| 003       | Numeric  | 1 byte     | Sunk                                             |
+| 010       | Numeric  | 1 byte     | Missed shot                                      |
+| 020       | Numeric  | 1 byte     | Hit                                              |
+| 030       | Numeric  | 1 byte     | Sunk                                             |
 | XY1       | Numeric  | 1 byte     | Ship instance $n = 10\times X + Y$ of type $T_1$ |
 | XY2       | Numeric  | 1 byte     | Ship instance $n = 10\times X + Y$ of type $T_2$ |
 | XY3       | Numeric  | 1 byte     | Ship instance $n = 10\times X + Y$ of type $T_3$ |
