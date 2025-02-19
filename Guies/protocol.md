@@ -45,18 +45,19 @@ En cas de que la partida ja no existeixi, el __servidor__ eliminarà el nom del 
 
 Un cop la partida tingui tots els jugadors assignats, el servidor ho notificarà als __clients__ amb un missatge `GAMESTATUS`. En aquest missatge s'indicarà el `gameState`, l'informació del tauler del pròpi jugador `board1`, l'informació del tauler de l'oponent (sigui humà o no) `board2` i una informació que variarà depenent de l'estat en que estigui el joc. 
 
-`C <------------- GAMESTATUS (gameState, board1, board2, info) ------------ S`
+`C <------------- GAMESTATUS (gameState, boardSize, board1, board2, info) ------------ S`
 
 | **Paràmetre**  |    **Tipus**      |  **Format**                          |
 |----------------|-------------------|--------------------------------------|
-|    gameStatus  | Numèric           | 1 byte                               |
+|    gameState  | Numèric           | 1 byte                               |
+|    boardSize      | Nombre de cel·les del tauler | Int32. Veure [representació taulers](./board.md) |
 |    board1      | Cel·les per files | $W\times H$ bytes. Veure [representació taulers](./board.md) |
 |    board2      | Cel·les per files | $W\times H$ bytes. Veure [representació taulers](./board.md) |
 |    info        | $N$ bytes         | Depenent estat. Veure taula següent  |
 
 Teniu una definició dels diferents estats del joc a [l'informació inicial](./battleship.md) i la representació format del missatge segons l'estat del joc:
 
-| **gameStatus**      |  **Informació**         | **Tipus**  |  **Format**                     |
+| **gameState**      |  **Informació**         | **Tipus**  |  **Format**                     |
 |---------------------|-------------------------|------------|---------------------------------|
 | WAITING_PLAYERS (1) |                         |            |                                 |
 | SETUP (2)           | Jugador1 preparat (0/1) | Booleà     |  1 byte                         |
@@ -73,10 +74,10 @@ Teniu una definició dels diferents estats del joc a [l'informació inicial](./b
 
 Per exemple, un missatge de tipus `GAMESTATUS` per una partida en la que l'oponent ja ha acabat de posar els seus vaixells, però a nosaltres ens en falta un per posar un de tipus $T_2$ i dos de tipus $T_5$ (estem en la fase `SETUP`), el missatge es representaria com:
 
-| **messageType** | **gameStatus** | **board1** | **board2** | **P1 ready** | **P2 ready** | $\bf{T_1}$ | $\bf{T_2}$ | $\bf{T_3}$ | $\bf{T_4}$ | $\bf{T_5}$ |
-|-----------------|----------------|------------|------------|--------------|--------------|-------|------------|------------|------------|------------|
-| 9               | 2              | $v_{1,1},\dots,v_{W,H}$ | $v_{1,1},\dots,v_{W,H}$|0|1|0|1|0|0|2|
-| <1 byte> | <1 byte> | <${W\times H}$ bytes> | <${W\times H}$ bytes> | <1 byte> | <1 byte> | <1 byte> | <1 byte> | <1 byte> | <1 byte> | <1 byte> |
+| **messageType** | **gameStatus** | **boardSize** | **board1** | **board2** | **P1 ready** | **P2 ready** | $\bf{T_1}$ | $\bf{T_2}$ | $\bf{T_3}$ | $\bf{T_4}$ | $\bf{T_5}$ |
+|-----------------|----------------|------------|------------|--------------|--------------|-------|------------|------------|------------|------------|---------------|
+| 9               | 2    | $W\times H$   | $v_{1,1},\dots,v_{W,H}$ | $v_{1,1},\dots,v_{W,H}$|0|1|0|1|0|0|2|
+| <1 byte> | <1 byte> | <4 bytes> | <${W\times H}$ bytes> | <${W\times H}$ bytes> | <1 byte> | <1 byte> | <1 byte> | <1 byte> | <1 byte> | <1 byte> | <1 byte> |
 
 ## 2. Configuració de la partida
 

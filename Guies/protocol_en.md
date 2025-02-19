@@ -45,18 +45,19 @@ If the game no longer exists, the **server** will remove the player's name from 
 
 Once the game has all the assigned players, the server will notify the **clients** with a `GAMESTATUS` message. This message will include the `gameState`, the player's own board information `board1`, the opponent's board information (whether human or AI) `board2`, and additional information depending on the state of the game.
 
-`C <------------- GAMESTATUS (gameState, board1, board2, info) ------------ S`
+`C <------------- GAMESTATUS (gameState, boardSize, board1, board2, info) ------------ S`
 
 | **Parameter** | **Type**      | **Format**                                                   |
 | ------------- | ------------- | ------------------------------------------------------------ |
-| gameStatus    | Numeric       | 1 byte                                                       |
+| gameState    | Numeric       | 1 byte                                                       |
+| boardSize      | Number of board cells | Int32. See [board representation](./board_en.md) |
 | board1        | Cells by rows | $W\times H$ bytes. See [board representation](./board_en.md) |
 | board2        | Cells by rows | $W\times H$ bytes. See [board representation](./board_en.md) |
 | info          | $N$ bytes     | Depends on the state. See the table below                    |
 
 You can find a definition of the different game states in [initial information](./battleship_en.md) and the message format representation according to the game state:
 
-| **gameStatus**      | **Information**                 | **Type** | **Format** |
+| **gameState**      | **Information**                 | **Type** | **Format** |
 | ------------------- | ------------------------------- | -------- | ---------- |
 | WAITING_PLAYERS (1) |                                 |          |            |
 | SETUP (2)           | Player1 ready (0/1)             | Boolean  | 1 byte     |
@@ -73,10 +74,10 @@ You can find a definition of the different game states in [initial information](
 
 For example, a `GAMESTATUS` message for a game where the opponent has finished placing their ships, but we still need to place one of type $T_2$ and two of type $T_5$ (we are in the `SETUP` phase) would look like:
 
-| **messageType** | **gameStatus** | **board1**              | **board2**              | **P1 ready** | **P2 ready** | $\bf{T_1}$ | $\bf{T_2}$ | $\bf{T_3}$ | $\bf{T_4}$ | $\bf{T_5}$ |
-| --------------- | -------------- | ----------------------- | ----------------------- | ------------ | ------------ | ---------- | ---------- | ---------- | ---------- | ---------- |
-| 9               | 2              | $v_{1,1},\dots,v_{W,H}$ | $v_{1,1},\dots,v_{W,H}$ | 0            | 1            | 0          | 1          | 0          | 0          | 2          |
-| <1 byte>        | <1 byte>       | <${W\times H}$ bytes>   | <${W\times H}$ bytes>   | <1 byte>     | <1 byte>     | <1 byte>   | <1 byte>   | <1 byte>   | <1 byte>   | <1 byte>   |
+| **messageType** | **gameStatus** | **boardSize** | **board1**              | **board2**              | **P1 ready** | **P2 ready** | $\bf{T_1}$ | $\bf{T_2}$ | $\bf{T_3}$ | $\bf{T_4}$ | $\bf{T_5}$ |
+| --------------- | -------------- | ----------------------- | ----------------------- | ------------ | ------------ | ---------- | ---------- | ---------- | ---------- | ---------- | -----|
+| 9               | 2    |  $W\times H$        | $v_{1,1},\dots,v_{W,H}$ | $v_{1,1},\dots,v_{W,H}$ | 0            | 1            | 0          | 1          | 0          | 0          | 2          |
+| <1 byte>        | <1 byte>  | <4 bytes>     | <${W\times H}$ bytes>   | <${W\times H}$ bytes>   | <1 byte>     | <1 byte>     | <1 byte>   | <1 byte>   | <1 byte>   | <1 byte>   | <1 byte>   |
 
 ## 2. Game setup
 
