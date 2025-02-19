@@ -91,7 +91,7 @@ The following sequence diagram shows a game between a single player and the serv
 
     note over Client,Server: When the game has all players,<br/>the server will notify the game state change.
 
-    Server->>Client: GAMESTATUS (2, <board1>, <board2>, 0, 0, 1, 1, 1, 1, 1)
+    Server->>Client: GAMESTATUS (2, 100, <board1>, <board2>, 0, 0, 1, 1, 1, 1, 1)
 
     note over Client,Server: We obtain the game configuration.
     Client->>+Server: GETCONFIG (10001, 20013)
@@ -111,47 +111,47 @@ The following sequence diagram shows a game between a single player and the serv
 
     note over Client,Server: When the setup is finished,<br/>the server will notify the game state change.
 
-    Server->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client: GAMESTATUS (3, 100, <board1>, <board2>, 1, 0)
 
     note over Client,Server: We make our moves. As long as we hit, we keep going.
 
     Client->>+Server: SHOT (10001, 20013, 3, 7)
     Server-->>-Client: HIT (0)
 
-    Server->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client: GAMESTATUS (3, 100, <board1>, <board2>, 1, 0)
 
     Client->>+Server: SHOT (10001, 20013, 3, 8)
     Server-->>-Client: HIT (1)
 
-    Server->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client: GAMESTATUS (3, 100, <board1>, <board2>, 1, 0)
 
     Client->>+Server: SHOT (10001, 20013, 3, 9)
     Server-->>-Client: FAIL ()
 
-    Server->>Client: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+    Server->>Client: GAMESTATUS (3, 100, <board1>, <board2>, 0, 1)
 
     note over Client,Server: After missing, the server will notify<br/>the game state change indicating that it's not our turn.
     note over Client,Server: For each opponent's move, we will receive an update<br/>on the state.
-    Server->>Client: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    Server->>Client: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    Server->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client: GAMESTATUS (3, 100, <board1>, <board2>, 0, 1)
+    Server->>Client: GAMESTATUS (3, 100, <board1>, <board2>, 0, 1)
+    Server->>Client: GAMESTATUS (3, 100, <board1>, <board2>, 1, 0)
 
     note over Client,Server: After the opponent has missed, the server will notify<br/>the game state change indicating that it's our turn again.
 
     Client->>+Server: SHOT (10001, 20013, 1, 1)
     Server-->>-Client: HIT (0)
 
-    Server->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client: GAMESTATUS (3, 100, <board1>, <board2>, 1, 0)
 
     Client->>+Server: SHOT (10001, 20013, 2, 1)
     Server-->>-Client: HIT (0)
 
-    Server->>Client: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client: GAMESTATUS (3, 100, <board1>, <board2>, 1, 0)
 
     Client->>+Server: SHOT (10001, 20013, 3, 1)
     Server-->>-Client: HIT (1)
 
-    Server->>Client: GAMESTATUS (4, <board1>, <board2>, 1, 0)
+    Server->>Client: GAMESTATUS (4, 100, <board1>, <board2>, 1, 0)
 
     note over Client,Server: After one player sinks the last ship,<br/>the server will notify the game state change to finished.
 
@@ -180,7 +180,7 @@ The following sequence diagram shows a game between a single player and the serv
 
     note over Client,Server: When the game has all players,<br/>the server will notify the game state change.
 
-    Server->>Client: GAMESTATUS (2, <board1>, <board2>, 0, 0, 1, 1, 1, 1, 1)
+    Server->>Client: GAMESTATUS (2, 81, <board1>, <board2>, 0, 0, 1, 1, 1, 1, 1)
 
     note over Client,Server: We obtain the game configuration.
     opt Since we created the game, we already have the information
@@ -222,9 +222,9 @@ The following sequence diagram shows a game with two players (AI deactivated). T
 
     note over Client1,Client2: When the game has all players,<br/>the server will notify the game state change.
 
-    Server->>Client1: GAMESTATUS (2, <board1>, <board2>, 0, 0, 0, 0, 1, 0, 1)
+    Server->>Client1: GAMESTATUS (2, 9, <board1>, <board2>, 0, 0, 0, 0, 1, 0, 1)
 
-    Server->>Client2: GAMESTATUS (2, <board1>, <board2>, 0, 0, 0, 0, 1, 0, 1)
+    Server->>Client2: GAMESTATUS (2, 9, <board1>, <board2>, 0, 0, 0, 0, 1, 0, 1)
 
     note over Client1,Client2: We obtain the game configuration.
 
@@ -248,16 +248,16 @@ The following sequence diagram shows a game with two players (AI deactivated). T
 
     note over Client1,Client2: Client2 has finished the setup.<br/>The server notifies the state change. The number of remaining ships changes for each player.
 
-    Server->>Client1: GAMESTATUS (2, <board1>, <board2>, 0, 1, 0, 0, 0, 0, 1)
-    Server->>Client2: GAMESTATUS (2, <board1>, <board2>, 0, 1, 0, 0, 0, 0, 0)
+    Server->>Client1: GAMESTATUS (2, 9, <board1>, <board2>, 0, 1, 0, 0, 0, 0, 1)
+    Server->>Client2: GAMESTATUS (2, 9, <board1>, <board2>, 0, 1, 0, 0, 0, 0, 0)
 
     Client1->>+Server: ADDVESSEL (10001, 20013, 5, 3, 2, 3, 3)
     Server-->>-Client1: OK (10001, 20013)
 
     note over Client1,Client2: Once Client1 finishes the setup,<br/>the server notifies the game state change.
 
-    Server->>Client1: GAMESTATUS (3, <board1>, <board2>, 1, 0)
-    Server->>Client2: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+    Server->>Client1: GAMESTATUS (3, 9, <board1>, <board2>, 1, 0)
+    Server->>Client2: GAMESTATUS (3, 9, <board1>, <board2>, 0, 1)
 
     note over Client1,Server: It's player 1's turn. While they have a hit, they continue shooting.
 
@@ -265,35 +265,35 @@ The following sequence diagram shows a game with two players (AI deactivated). T
     Server-->>-Client1: FAIL ()
 
     note over Client1,Client2: Turn change
-    Server->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    Server->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client1: GAMESTATUS (3, 9, <board1>, <board2>, 0, 1)
+    Server->>Client2: GAMESTATUS (3, 9, <board1>, <board2>, 1, 0)
 
     note over Client2,Server: It's player 2's turn. While they have a hit, they continue shooting.
 
     Client2->>+Server: SHOT (10005, 20013, 1, 1)
     Server-->>-Client2: HIT (0)
 
-    Server->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    Server->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client1: GAMESTATUS (3, 9, <board1>, <board2>, 0, 1)
+    Server->>Client2: GAMESTATUS (3, 9, <board1>, <board2>, 1, 0)
 
     Client2->>+Server: SHOT (10005, 20013, 2, 1)
     Server-->>-Client2: HIT (0)
 
-    Server->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    Server->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client1: GAMESTATUS (3, 9, <board1>, <board2>, 0, 1)
+    Server->>Client2: GAMESTATUS (3, 9, <board1>, <board2>, 1, 0)
 
     Client2->>+Server: SHOT (10005, 20013, 3, 1)
     Server-->>-Client2: HIT (1)
 
-    Server->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    Server->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client1: GAMESTATUS (3, 9, <board1>, <board2>, 0, 1)
+    Server->>Client2: GAMESTATUS (3, 9, <board1>, <board2>, 1, 0)
 
     Client2->>+Server: SHOT (10005, 20013, 1, 3)
     Server-->>-Client2: FAIL ()
 
     note over Client1,Client2: Turn change
-    Server->>Client1: GAMESTATUS (3, <board1>, <board2>, 1, 0)
-    Server->>Client2: GAMESTATUS (3, <board1>, <board2>, 0, 1)
+    Server->>Client1: GAMESTATUS (3, 9, <board1>, <board2>, 1, 0)
+    Server->>Client2: GAMESTATUS (3, 9, <board1>, <board2>, 0, 1)
 
     note over Client1,Server: It's player 1's turn. While they have a hit, they continue shooting.
 
@@ -301,23 +301,23 @@ The following sequence diagram shows a game with two players (AI deactivated). T
     Server-->>-Client1: FAIL ()
 
     note over Client1,Client2: Turn change
-    Server->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    Server->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client1: GAMESTATUS (3, 9, <board1>, <board2>, 0, 1)
+    Server->>Client2: GAMESTATUS (3, 9, <board1>, <board2>, 1, 0)
 
     note over Client2,Server: It's player 2's turn. While they have a hit, they continue shooting.
 
     Client2->>+Server: SHOT (10005, 20013, 3, 2)
     Server-->>-Client2: HIT (0)
 
-    Server->>Client1: GAMESTATUS (3, <board1>, <board2>, 0, 1)
-    Server->>Client2: GAMESTATUS (3, <board1>, <board2>, 1, 0)
+    Server->>Client1: GAMESTATUS (3, 9, <board1>, <board2>, 0, 1)
+    Server->>Client2: GAMESTATUS (3, 9, <board1>, <board2>, 1, 0)
 
     Client2->>+Server: SHOT (10005, 20013, 3, 3)
     Server-->>-Client2: HIT (1)
 
     note over Client1,Client2: Client2 has sunk Client1's last ship.<br/>The game ends and the server notifies the game state change.
-    Server->>Client1: GAMESTATUS (4, <board1>, <board2>, 0, 1)
-    Server->>Client2: GAMESTATUS (4, <board1>, <board2>, 1, 0)
+    Server->>Client1: GAMESTATUS (4, 9, <board1>, <board2>, 0, 1)
+    Server->>Client2: GAMESTATUS (4, 9, <board1>, <board2>, 1, 0)
 
     note over Client1,Client2: Whether we want to start another game or leave the game,<br/>we must leave the game first.
 
