@@ -1,6 +1,6 @@
 # Session 2
 
-Once all protocol messages have been implemented and tested, in this session, we will start exchanging messages between ___Client__ and __Server__. Specifically, we will begin implementing the initial phases of the game.
+Once all protocol messages have been implemented and tested, in this session, we will start exchanging messages between __Client__ and __Server__. Specifically, we will begin implementing the initial phases of the game.
 
 ## Objectives
 
