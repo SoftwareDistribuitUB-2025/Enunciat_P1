@@ -1,6 +1,6 @@
 # Sessió 2
 
-Un cop implementats i provats tots els missatges del protocol, en aquesta sessió començarem a intercanviar missatges entre ___Client__ i __Servidor__. En concret, començarem a implementar les primeres fases del joc.
+Un cop implementats i provats tots els missatges del protocol, en aquesta sessió començarem a intercanviar missatges entre __Client__ i __Servidor__. En concret, començarem a implementar les primeres fases del joc.
 
 
 ## Objectius
@@ -100,7 +100,7 @@ A continuació es detallen les implementacions més importants als dos costats:
 
 ### Servidor
 
-El servidor haurà de gestionar la creació de la partida i l'assignació dels jugadors a ella. Es tracta dels estats inificals del diagrama d'estats (podeu veure el diagrama complet a la [descripció del joc](../Guies/battleship.md)):
+El servidor haurà de gestionar la creació de la partida i l'assignació dels jugadors a ella. Es tracta dels estats inicicals del diagrama d'estats (podeu veure el diagrama complet a la [descripció del joc](../Guies/battleship.md)):
 
 ```mermaid
 stateDiagram-v2
@@ -136,23 +136,11 @@ El client haurà d'implementar la interacció amb l'usuari. La versió més simp
 
 ### Treball fora del laboratori:
 
+Continuant el treball al laboratori, de cara a la setmana següent es demana que implementeu la fase de configuració, en la qual els jugadors aniran posant els seus vaixells al tauler de joc.
+
 ## Fase de configuració
 
-Implementarem les classes i mètodes relatius a la configuració del joc. 
-
-```mermaid
-stateDiagram-v2
-    [*] --> WAITING_PLAYERS: CREATE | JOIN
-    FINISHED --> [*]
-
-    WAITING_PLAYERS --> SETUP: JOIN
-    WAITING_PLAYERS --> SETUP
-    SETUP --> SETUP: ADDVESSEL
-    SETUP --> PLAYING: ADDVESSEL
-   
-    SETUP --> FINISHED: LEAVE    
-```
-
+En aquesta fase els jugadors ubiquen al tauler els seus vaixells. Seguint amb l'esquema de les tasques al laboratori, a continuació es mostra el diagrama de classes amb les classes que poden estar involucrades (recordeu que moltes de les classes són opcionals). Dins la definició de la interfície `IBattleshipGame` us detallem els mètodes que caldrà implementar.
 
 ```mermaid
 ---
@@ -198,7 +186,12 @@ classDiagram
 
 ```
 
+I seguint l'esquema del protocol mostrat a la [descripció de la pràctica](../Guies/battleship.md), volem implementar la següent part:
+
 ```mermaid
+---
+title: Diagrama de seqüència simplificat per a la fase de configuració
+---
   sequenceDiagram
 
     note over Client,Servidor: Ens afegim a una partida. <BR/>El servidor la crearà automàticament.
@@ -236,3 +229,50 @@ classDiagram
     Servidor-->>-Client: OK (10001, 20013)
 
 ```
+
+Fixeu-vos que seguim assumint que la partida és per a **un sol jugador** i que el servidor **crea la partida automàticament**. Un cop el __Client__ rep la notificació de que la partida ha modificat el `gameState` a `SETUP(2)`, iniciarà la fase de configuració:
+
+- el __Client__ demanarà la configuració de la partida mitjançant un missatge `GETCONFIG`. El __Servidor__ li contestarà amb un missatge `GAMECONFIG` indicant la mida del tauler i els vaixells de cada tipus que es poden posar. Depenent de la vostra implementació, aquesta informació la podeu tenir guardada directament a l'objecte de partida `BattleshioGame` o en alguna altra classe.
+- el __Client__ anirà ubicant els vaixells en el tauler, enviant missatges de tipus `ADDVESSEL` al __Servidor__. Per cada vaixell, el __Servidor__ verificarà que la informació és correcta i en tal cas li contestarà al __Client__ amb un missatge `OK`. Si la informació no és correcta, retornarà un missatge de tipus `ERROR` del tipus que toqui (veure [descripció missatges d'error](../Guies/errors.md))
+- cada cop que un jugador hagi finalitzat d'ubicar els seus vaixells, el __Servidor__ notificarà a tots els jugadors sobre el canvi en l'estat amb un missatge `GAMESTATUS`. Quan tots els jugadors han finalitzat d'ubicar els vaixells, aquest missatge `GAMESTATUS` indicarà que la partida ha canviat a l'estat `PLAYING (3)`. 
+- en el cas d'un sol jugador podeu ometre el missatge en que el __Servidor__ notifica que el jugador `IA`ha ubicat els vaixells, deixant els vaixells ja ubicats en el moment de la creació de la partida. En cas contrari, heu de buscar un moment en que es fassi l'assignació i s'enviï aquest canvi d'estat.
+
+**NOTA:** En aquesta fase de la implementació, ja heu de tenir implementat el tauler, per tant, la codificació del tauler hauria de ser la descrita en la [definició del tauler](../Guies/board.md).
+
+A continuació es detallen les implementacions més importants als dos costats:
+
+
+### Servidor
+
+El servidor haurà de gestionar la inicialització del tauler per part del jugador humà i de l'automàtic. Es tracta dels estats inicials del diagrama d'estats (podeu veure el diagrama complet a la [descripció del joc](../Guies/battleship.md)):
+
+```mermaid
+stateDiagram-v2
+    [*] --> WAITING_PLAYERS: CREATE | JOIN
+    FINISHED --> [*]
+
+    WAITING_PLAYERS --> SETUP: JOIN
+    WAITING_PLAYERS --> SETUP
+    SETUP --> SETUP: ADDVESSEL
+    SETUP --> PLAYING: ADDVESSEL
+   
+    SETUP --> FINISHED: LEAVE    
+```
+
+Seguint amb la implementació de la classe `BattleshipGame`, caldrà implementar els següents mètodes:
+
+- **int getRemainingVessels(int playerId, int type):** Retorna el nombre de vaixells d'un determinat tipus, que li falta posar en el tauler al jugador amb el `playerId` indicat. 
+- **boolean isPlayerReady(int playerId):** Retorna `true` si el jugador amb el `playerId` indicat ja ha ubicat tots els vaixells i per tant està a punt de començar la partida, o `false` en cas contrari.
+- **boolean addVessel(int playerId, int ri, int ci, int rf, int cf, int type):** Afegeix un vaixell al tauler del jugador el `playerId` indicat. Retorna `true` si el vaixell s'ha pogut afegir o `false`en cas contrari.
+
+A més a més, caldrà gestionar la petició de la configuració del joc via el missatge `GETCONFIG`.
+
+
+### Client
+
+El client haurà d'implementar el menú de configuració, al que es mourà en rebre el canvi d'estat via un missatge `GAMESTATUS`. Les opcions en aquest menú poden ser:
+
+  - **1.- Ubicar un vaixell:** El client demanarà la informació del vaixell a ubicar i enviarà la comanda `ADDVESSEL` al servidor. Per facilitar aquesta acció, es pot mostrar una representació del tauler.
+  - **2.- Sortir:** El client enviarà la comanda `LEAVE` al servidor i finalitzarà la seva execució.
+
+
