@@ -148,6 +148,6 @@ ip a
 
 Per arrancar el **client** farem exactament el mateix que en la sessió anterior, però en comptes de ```localhost```, haurem de posar la IP obtinguda en el pas anterior. El funcionament hauria de ser exactament el mateix que teníeu en la sessió anterior.
 
-## Deures:
+## Treball fora del laboratori:
 * Implementa tots els missatges del protocol
 * Implementa com a mínim un test unitari per cada missatge
