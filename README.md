@@ -50,4 +50,5 @@ La practica 1 consisteix en implementar un joc senzill amb arquitectura Client-S
 |--------|-----------|-------------------------------------------|----------|
 |    0   | 12 Febrer | [Guió Sessió 0](./Sessions/sessio_0.md)   | Aquesta setmana farem la creació de grups i revisarem el problema a resoldre i el codi que es facilita |
 |    1   | 19 Febrer | [Guió Sessió 1](./Sessions/sessio_1.md)   | En aquesta sessió clarificarem els dubtes sobre la codificació dels missatges i el protocol en si. També començarem la codificació de la pràctica. |
+|    2   | 26 Febrer | [Guió Sessió 1](./Sessions/sessio_2.md) | En aquesta sessió començarem a intercanviar missatges entre Client i Servidor, a implementant les primeres fases del joc. |
 
