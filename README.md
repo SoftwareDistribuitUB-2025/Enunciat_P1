@@ -50,5 +50,8 @@ La practica 1 consisteix en implementar un joc senzill amb arquitectura Client-S
 |--------|-----------|-------------------------------------------|----------|
 |    0   | 12 Febrer | [Guió Sessió 0](./Sessions/sessio_0.md)   | Aquesta setmana farem la creació de grups i revisarem el problema a resoldre i el codi que es facilita |
 |    1   | 19 Febrer | [Guió Sessió 1](./Sessions/sessio_1.md)   | En aquesta sessió clarificarem els dubtes sobre la codificació dels missatges i el protocol en si. També començarem la codificació de la pràctica. |
-|    2   | 26 Febrer | [Guió Sessió 1](./Sessions/sessio_2.md) | En aquesta sessió començarem a intercanviar missatges entre Client i Servidor, a implementant les primeres fases del joc. |
-
+|    2   | 26 Febrer | [Guió Sessió 2](./Sessions/sessio_2.md) | En aquesta sessió començarem a intercanviar missatges entre Client i Servidor, a implementant les primeres fases del joc. |
+|    3   | 5 Març |  | En aquesta sessió començarem la implementació de la dinàmica del joc i assegurarem els sockets. |
+|    4   | 12 Març |  | **Qüestionari 1**. En aquesta sessió finalitzarem la implementació de la dinàmica del joc i afegirem la opció multi-jugador. |
+|    -   | 19 Març |  | Aquesta setmana hi ha la **Matefest-Infofest**. El dimecres no hi ha sessió, i les sessions de dijous (**IG:** 17h-19h, **IB:** 19h-21h) estaran obertes a tothom per resoldre dubtes sobre la pràctica. |
+|   5    | 26 Març |  | Sessió de **proves creuades**. Aquesta sessió farem proves entre els diferents grups. |
