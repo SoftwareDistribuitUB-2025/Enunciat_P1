@@ -78,6 +78,50 @@ stateDiagram-v2
 
 Following the structure of the previous session, each player (in this case, only one) must have access to the `BattleshipGame` class, which will implement the game dynamics. For this session, you are required to implement at least the following methods:
 
+```mermaid
+---
+title: Possible classes for implementing the game. Required classes in red.
+---
+classDiagram
+    class ComUtils:::mandatoryClass
+    class GameHandler:::mandatoryClass
+    class BattleshipGame:::mandatoryClass {
+        int gameId
+    }
+    class GamePlayer {
+        int playerId
+    }
+    class INetworkObject {
+        <<interface>>
+        byte[] toBytes()
+    }
+    class GameStatus
+    class Vessel
+    class BattleshipComUtils:::mandatoryClass
+    class GameBoard
+    class IBattleshipGame:::mandatoryClass {
+        <<interface>>
+        int getActivePlayer()
+        int getWinPlayer()
+        int shot(int playerId, int r, int c)
+        void endGame()
+    }
+    ComUtils <|-- BattleshipComUtils
+    GameHandler *-- GamePlayer: manages
+    GamePlayer "1..2" -- "1" BattleshipGame: play
+    IBattleshipGame <|.. BattleshipGame
+    GamePlayer ..> GameBoard: board1
+    GamePlayer ..> GameBoard: board2
+    INetworkObject <|.. GameBoard
+    INetworkObject <|.. GamePlayer
+    INetworkObject <|.. GameStatus
+    GamePlayer ..> BattleshipComUtils
+    BattleshipGame ..> GameStatus
+    GameBoard "1" ..> "*" Vessel
+
+    classDef mandatoryClass fill:#ff00003d
+```
+
 - **int getActivePlayer():** Returns the identifier of the active player. Since we are asking you to implement the part without transitions in this session, you can assume that it always returns the `playerId` assigned to player 1. If the game has finished (state `FINISHED`), it will return `-1`.
 - **int getWinPlayer():** Returns the `playerId` of the winning player. If the game has not yet finished, it will return `-1`.
 - **int shot(int playerId, int r, int c):** This method makes a move on behalf of the player with the given identifier. It returns an integer value indicating the result of the move: miss (0), hit (1), sunk (2). In case of an error, it returns `-1`.

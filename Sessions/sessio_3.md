@@ -82,6 +82,50 @@ stateDiagram-v2
 
 Seguint amb l'estructura de la sessió anterior, cada jugador (en aquest cas només en tindrem un) haurà de tenir accés a la classe `BattleshipGame` que implementarà la dinàmica del joc. Per realitzar aquesta sessió, es demana que implementeu com a mínim els següents mètodes:
 
+```mermaid
+---
+title: Possibles classes per implementar el joc. Classe requerides en vermell.
+---
+classDiagram
+    class ComUtils:::mandatoryClass
+    class GameHandler:::mandatoryClass
+    class BattleshipGame:::mandatoryClass {
+        int gameId
+    }
+    class GamePlayer {
+        int playerId
+    }
+    class INetworkObject {
+        <<interface>>
+        byte[] toBytes()
+    }
+    class GameStatus
+    class Vessel
+    class BattleshipComUtils:::mandatoryClass
+    class GameBoard
+    class IBattleshipGame:::mandatoryClass {
+        <<interface>>
+        int getActivePlayer()
+        int getWinPlayer()
+        int shot(int playerId, int r, int c)
+        void endGame()
+    }
+    ComUtils <|-- BattleshipComUtils
+    GameHandler *-- GamePlayer: manages
+    GamePlayer "1..2" -- "1" BattleshipGame: play
+    IBattleshipGame <|.. BattleshipGame
+    GamePlayer ..> GameBoard: board1
+    GamePlayer ..> GameBoard: board2
+    INetworkObject <|.. GameBoard
+    INetworkObject <|.. GamePlayer
+    INetworkObject <|.. GameStatus
+    GamePlayer ..> BattleshipComUtils
+    BattleshipGame ..> GameStatus
+    GameBoard "1" ..> "*" Vessel
+
+    classDef mandatoryClass fill:#ff00003d
+```
+
 - **int getActivePlayer():** Retorna l'identificador del jugador actiu. Donat que en aquesta sessió us demanem fer la part sense transicions, podeu assumir que sempre retorna el `playerId` assignat al jugador 1. En cas que la partida hagi finalitzat (estat `FINISHED`), retornarà `-1`.
 - **int getWinPlayer():** Retorna l'identificador `playerId` del jugador guanyador. En cas qeu no s'hagi finalitzat la partida retornarà un `-1`.
 - **int shot(int playerId, int r, int c):** Aquest mètode efectua una jugada en nom del jugador amb l'identificador donat. Retorna un valor enter indicant el resultat de la jugada: miss (0), hit(1), sunk(2). En cas d'error, retornarà un -1.
