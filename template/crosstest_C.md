@@ -24,7 +24,7 @@ A la següent taula teniu definida la adreça IP i la informació per a tots els
 |  **C11**  |   10.133.31.1    |  8080               |        :x:        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 |  **C12**  |   10.111.157.7    |  8080               |        :x:        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 |  **B01**  |   10.111.151.222    |  8080               |        :x:        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
-|  **B11**  |   161.116.111.145    |  8080               |        :x:        | :x: | :x: | :x: | :x: | :x: | :x: |
+|  **B11**  |   161.116.111.145    |  8080               |        :x:        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 
 
