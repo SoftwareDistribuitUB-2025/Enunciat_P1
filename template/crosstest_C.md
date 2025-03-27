@@ -21,7 +21,7 @@ A la següent taula teniu definida la adreça IP i la informació per a tots els
 |  **C08**  |   10.111.154.48    |  8080               |        :x:        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 |  **C09**  |   161.116.111.149    |  8080               |        :x:        | :x: | :x: | :x: | :x: | :heavy_check_mark: | :x: |
 |  **C10**  |   161.116.111.203    |  8080               |        :x:        | :x: | :x: | :x: | :heavy_check_mark: | :x: | :x: |
-|  **C11**  |   10.133.31.1    |  8080               |        :x:        | :heavy_check_mark: | :heavy_check_mark: | :x: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+|  **C11**  |   10.133.31.1    |  8080               |        :x:        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 |  **C12**  |   10.111.157.7    |  8080               |        :x:        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 |  **B01**  |   10.111.151.222    |  8080               |        :x:        | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 |  **B11**  |   161.116.111.145    |  8080               |        :x:        | :x: | :x: | :x: | :x: | :x: | :x: |
