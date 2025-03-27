@@ -19,7 +19,7 @@ Per fer més àgil la sessió, s'ha definit un seguit de fases:
 
 ### Preparació de la prova
 
-El primer pas per poder realitzar la prova creuada és tenir la informació de partida dels grups. Amb aquest objectiu, cal que identifiqueu la següent informació. Utilitzeu [aquest full de càlcul](https://ubarcelona-my.sharepoint.com/:x:/g/personal/xbaro_ub_edu/EUx51mJiYxVIlo_cO6dB8k0BKI-0Jh4Qpj_8s-1xRPIvWg?e=JwlsO8) a l'inici de la sessió per recollir aquesta informació:
+El primer pas per poder realitzar la prova creuada és tenir la informació de partida dels grups. Amb aquest objectiu, cal que identifiqueu la següent informació. Utilitzeu [aquest full de càlcul]([https://ubarcelona-my.sharepoint.com/:x:/g/personal/xbaro_ub_edu/EUx51mJiYxVIlo_cO6dB8k0BKI-0Jh4Qpj_8s-1xRPIvWg?e=JwlsO8](https://ubarcelona-my.sharepoint.com/:x:/g/personal/xbaro_ub_edu/EUx51mJiYxVIlo_cO6dB8k0BXXdfSttCykQnxtbsHZ3bCw?e=GpxvVg)) a l'inici de la sessió per recollir aquesta informació:
 
 - **Adreça IP** de la màquina on arrancareu el __Servidor__. Ho podeu fer visitant la següent pàgina web amb qualsevol navegador: https://www.whatismyip.com/
 - **Estat real** de la vostra pràctica:
